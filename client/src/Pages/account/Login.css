@@ -1,0 +1,86 @@
+.standard_bg{
+    background-color: rgb(19, 19, 19);
+    min-height: 100vh;
+
+    padding-top: 15vh;
+}
+
+.standard_heading2{
+    font-size: 2vw;
+    font-weight: 100;
+    color: white;
+    padding: 2vh;
+    margin-bottom: 5vh;
+}
+
+.not_selected{
+    opacity: .3;
+}
+
+.selected{
+    border: 1px white solid;
+}
+
+.form_main{
+    margin-top: 8vh;
+}
+
+.form_row{
+    display: flex;
+    color: white;
+    justify-content: center;
+    width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form_item{
+    width: 100%;
+    text-align: left;
+    padding: 1vw;
+    padding-bottom: 0;
+}
+
+.form_item p{
+    margin: 0;
+    margin-bottom: .5vh;
+}
+
+.form_item input{
+    width: 100%;
+}
+
+.basic_button{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 10vh;
+    padding: 1vh;
+    width: 20vw;
+    margin: 5vh;
+}
+
+.error_msg{
+    color: red;
+    font-weight: 150;
+}
+
+/* for phone screen */
+
+@media screen and (max-width: 769px) {
+    .standard_heading2{
+        font-size: 10vw;
+    }
+
+    .form_row{
+        width: 90vw;
+    }
+    
+    .basic_button{
+        margin-left: 10vw;
+        margin-right: 10vw;
+
+        width: 80vw;
+    }
+
+}
