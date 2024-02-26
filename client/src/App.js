@@ -1,0 +1,35 @@
+import logo from './logo.svg';
+import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import MyNav from './Components/navbar';
+
+import Entry from './Pages/account/entry';
+import Login from './Pages/account/Login';
+import Signup from './Pages/account/Signup';
+import Home from './Pages/Home';
+import Forgot from './Pages/account/Forgot';
+import Profile from './Pages/Profile';
+import Explore from './Pages/Explore';
+
+function App() {
+  return (
+    <div className="App">
+      <MyNav></MyNav>
+      <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Entry/>}></Route>
+                <Route path='/login' element={<Login/>}></Route>
+                <Route path='/signup' element={<Signup/>}></Route>
+                <Route path='/forgot' element={<Forgot/>}></Route>
+                <Route path='/home' element={<Home/>}></Route>
+                <Route path='/profile' element={<Profile/>}></Route>
+                <Route path='/explore' element={<Explore/>}></Route>
+            </Routes>
+          </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
