@@ -7,11 +7,10 @@ function Mentor(props) {
     return (
         <div>
             <div className={`mentorcard`}>
-                <p>mentor</p>
-                <h1>{props.name}</h1>
-                <h3>{props.college}</h3>
-                <h3>{props.major}</h3>
-                <button>Learn More</button>
+                <h1 className='mentor_name'>{props.name}</h1>
+                <h3 className='mentor_college'>College attended: {props.college}</h3>
+                <h3 className='mentor_major'>Major: {props.major}</h3>
+                <button className='basic_button_black'>LEARN MORE</button>
             </div>
         </div>
     );
