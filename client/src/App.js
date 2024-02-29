@@ -12,7 +12,7 @@ import Home from './Pages/Home';
 import Forgot from './Pages/account/Forgot';
 import Profile from './Pages/Profile';
 import Explore from './Pages/Explore';
-import Mentor from './Pages/Mentor';
+import OneMentor from './Pages/OneMentor';
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
                 <Route path='/home' element={<Home/>}></Route>
                 <Route path='/profile' element={<Profile/>}></Route>
                 <Route path='/explore' element={<Explore/>}></Route>
-                <Route path='/mentor' element={<Mentor/>}></Route>
+                <Route path='/mentor' element={<OneMentor/>}></Route>
             </Routes>
           </BrowserRouter>
     </div>

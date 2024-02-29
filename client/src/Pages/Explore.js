@@ -16,6 +16,7 @@ export default function Explore() {
     });
 
     useEffect(() => {
+        localStorage.removeItem("currentMentorId");
         searchMentors()
       }, []);
 
@@ -43,7 +44,7 @@ export default function Explore() {
                     <div className='allMentors'>
                     {allMentors.map(function(data) {
                         return (
-                            <div className={"column"}><Mentor name={data.first + " " + data.last} college={data.college} major={data.major}></Mentor></div>
+                            <div className={"column"}><Mentor name={data.first + " " + data.last} college={data.college} major={data.major} _id={data._id}></Mentor></div>
                         )
                         })}
                     </div>
