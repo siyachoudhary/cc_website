@@ -50,22 +50,22 @@ export default function Profile() {
         });
         if(!completedInterestAdding){
             for (let index = 0; index < thisUser.interest.length; index++) {
-                if(thisUser.interest[index]=="machine learning"){
+                if(thisUser.interest[index].value=="machine learning"){
                     setSelectedOptions(prevArray => [...prevArray, options[0]])
                 }
-                if(thisUser.interest[index]=="data science"){
+                if(thisUser.interest[index].value=="data science"){
                     setSelectedOptions(prevArray => [...prevArray, options[1]])
                 }
-                if(thisUser.interest[index]=="database"){
+                if(thisUser.interest[index].value=="database"){
                     setSelectedOptions(prevArray => [...prevArray, options[2]])
                 }
-                if(thisUser.interest[index]=="frontend"){
+                if(thisUser.interest[index].value=="frontend"){
                     setSelectedOptions(prevArray => [...prevArray, options[3]])
                 }
-                if(thisUser.interest[index]=="game"){
+                if(thisUser.interest[index].value=="game"){
                     setSelectedOptions(prevArray => [...prevArray, options[4]])
                 }
-                if(thisUser.interest[index]=="algos"){
+                if(thisUser.interest[index].value=="algos"){
                     setSelectedOptions(prevArray => [...prevArray, options[5]])
                 }
         }}
@@ -112,7 +112,7 @@ export default function Profile() {
         let selectedInterests = []
 
         for (var i = 0; i<selectedOptions.length; i++) {
-            selectedInterests.push(selectedOptions[i].value)
+            selectedInterests.push(selectedOptions[i])
         }
 
         setFirstError("")

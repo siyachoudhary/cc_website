@@ -16,6 +16,7 @@ export default function Explore() {
     });
 
     useEffect(() => {
+        localStorage.removeItem("currentMentorId");
         searchMentors()
       }, []);
 
@@ -39,11 +40,11 @@ export default function Explore() {
         {isLoggedIn?
 
             <div className='standard_bg'>
-                    <h1 className='standard_heading'>CONANT CONNECT</h1>
+                    <h1 className='standard_heading4'>FIND MENTORS</h1>
                     <div className='allMentors'>
                     {allMentors.map(function(data) {
                         return (
-                            <div className={"column"}><Mentor name={data.first + " " + data.last} college={data.college} major={data.major}></Mentor></div>
+                            <div className={"column"}><Mentor name={data.first + " " + data.last} college={data.college} major={data.major} _id={data._id}></Mentor></div>
                         )
                         })}
                     </div>

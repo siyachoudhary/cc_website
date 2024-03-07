@@ -442,6 +442,24 @@ app.get("/findmentors", (request, response) => {
     });
 });
 
+app.get("/findonementor/:_id", (request, response) => { 
+  console.log(request.params)
+  User.findOne({ _id: request.params._id}) 
+    .then((user) => {
+      // console.log(user)
+      response.status(200).send({
+        user
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+});
+
 // // update endpoint
 // app.post("/updateUser/:email", (request, response) => {
 //   // check if email exists
