@@ -1,0 +1,13 @@
+.paragraphBasic{
+    color: white;
+   width: 50%;
+   margin-left: auto;
+   margin-right: auto ;
+}
+
+@media only screen and (max-width: 450px) {
+    .paragraphBasic{
+        color: white;
+        width: 80%;
+    }
+}

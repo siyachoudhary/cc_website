@@ -6,20 +6,24 @@ import axios from 'axios';
 export default function OneMentor() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [mentorId, setMentorId] = useState(null);
+    const [thisMentor, setThisMentor] = useState(null);
+    
 
     // check if the user is logged in on the server
     useEffect(() => {
-      if(localStorage.getItem("user")){
-        setIsLoggedIn(true)
-      }
-      try {
-        setMentorId(String(localStorage.getItem("currentMentorId")))
-        if(mentorId!=null){
-          searchMentors()
+        if(localStorage.getItem("user")){
+          setIsLoggedIn(true)
         }
-      } catch (e){
-        console.log(e)
-      }
+        if(thisMentor==null){
+        try {
+          setMentorId(String(localStorage.getItem("currentMentorId")))
+          if(mentorId!=null){
+            searchMentors()
+          }
+        } catch (e){
+          console.log(e)
+        }}
+        
     });
 
     useEffect(() => {
@@ -35,15 +39,12 @@ export default function OneMentor() {
           }
       })
       .then(function(response) {
-        // console.log(localStorage.getItem("currentMentorId"))
-          // handle success
-          // setAllMentors(response.data.user)
-          console.log(response.data)
+          setThisMentor(response.data.user)
+          console.log(response.data.user.first)
 
       }).catch(function (err) {
           console.log(err.message);
       });
-      
   };
 
   return (
@@ -51,9 +52,28 @@ export default function OneMentor() {
         {isLoggedIn?
 
             <div className='standard_bg'>
+
+              {thisMentor!=null?
                 <div id='main_txt'>
-                    <h1 className='standard_heading'>CONANT CONNECT</h1>
-                </div>
+                  <h1 className='standard_heading4'>{thisMentor.first} {thisMentor.last}</h1>
+                  <h1 className='standard_heading3'>College Attended: {thisMentor.college}</h1>
+                  <h1 className='standard_heading3'>Major: {thisMentor.major}</h1>
+                  <br></br>
+                  <h1 className='standard_heading3'>Mentor Bio:</h1>
+                  <p className='paragraphBasic'>{thisMentor.bio}</p>
+                  <p className='standard_paragraph'>My Interests:</p>
+
+                  {thisMentor.interest.map(function(data) {
+                            return (
+                                <div className='interestOptions'>
+                                    {data.label}
+                                </div>
+                            )})}
+                  <br></br>
+                  <button className='basic_button'>SEND CONNECTION REQUEST</button>
+                </div>:null
+              }
+              
             </div>
 
             :
