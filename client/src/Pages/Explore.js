@@ -3,6 +3,7 @@ import './Explore.css'
 import Mentor from './components/Mentor';
 import axios from 'axios';
 import { BaseURL } from './BaseUrl';
+import Select from 'react-select'
 
 export default function Explore() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,12 +18,21 @@ export default function Explore() {
 
     useEffect(() => {
         localStorage.removeItem("currentMentorId");
-        searchMentors()
+        searchMentors(selectedOptions)
+        
       }, []);
 
-    const searchMentors = () => {
-        axios.get(`${BaseURL}findmentors`, {
-            
+    const searchMentors = (selectedOptionHere) => {
+      let selectedInterests = []
+
+      for (var i = 0; i<selectedOptionHere.length; i++) {
+          selectedInterests.push(selectedOptionHere[i])
+      }
+
+      // console.log(selectedInterests)
+
+        axios.post(`${BaseURL}findmentors`, {
+            interest: selectedInterests,
         })
         .then(function (response) {
             // handle success
@@ -32,15 +42,50 @@ export default function Explore() {
         }).catch(function (err) {
             console.log(err.message);
         });
-        
+      
     };
+
+    const [selectedOptions, setSelectedOptions] = useState([])
+
+    const options = [
+        { value: 'machine learning', label: 'Machine Learning' },
+        { value: 'data science', label: 'Data Science' },
+        { value: 'database', label: 'Database Management' },
+        { value: 'frontend', label: 'Frontend Development' },
+        { value: 'game', label: 'Game Design' },
+        { value: 'algos', label: 'Algorithms' }
+    ]
+
+    const handleItemChange = (selectedOption) => {
+      setSelectedOptions(selectedOption);
+      searchMentors(selectedOption)
+    };
+    
 
   return (
     <div>
         {isLoggedIn?
 
+            
+
             <div className='standard_bg'>
-                    <h1 className='standard_heading4'>FIND MENTORS</h1>
+                <h1 className='standard_heading4'>FIND MENTORS</h1>
+                    <div className='form_row'>
+                                <div className='form_item'>
+                                <p>FILTERED BASED ON SKILLS AND INTERESTS:</p>
+                                <Select
+                                    isMulti
+                                    name="colors"
+                                    options={options}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                    value={selectedOptions}
+                                    onChange={handleItemChange}
+                                />
+                                </div>
+                            </div>
+
+                    
                     <div className='allMentors'>
                     {allMentors.map(function(data) {
                         return (

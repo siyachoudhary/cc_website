@@ -425,10 +425,12 @@ app.post("/deleteUser", (request, response) => {
     });
 });
 
-app.get("/findmentors", (request, response) => { 
-  User.find({ user_type: "mentor"}) 
+app.post("/findmentors", (request, response) => {
+  console.log(request.body.interest.length )
+  if(request.body.interest.length == 0){
+    User.find({ user_type: "mentor"}) 
     .then((users) => {
-      console.log(users)
+      // console.log(users)
       response.status(200).send({
         users
       });
@@ -440,6 +442,24 @@ app.get("/findmentors", (request, response) => {
         e,
       });
     });
+  }else{
+    User.find({
+      interest: { $in: request.body.interest },
+      user_type: "mentor"
+    }).then((users)=>{
+      response.status(200).send({
+        users
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+  }
+  
 });
 
 app.get("/findonementor/:_id", (request, response) => { 
