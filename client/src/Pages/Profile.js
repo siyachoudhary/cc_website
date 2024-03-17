@@ -168,8 +168,6 @@ export default function Profile() {
 
         if(noErrors){
 
-            console.log(formData.bio)
-
             if(isStudent){
                 // register if user is a student
                 axios.post(`${BaseURL}editstudent`, {
@@ -314,7 +312,7 @@ export default function Profile() {
                                 </div>:
                                 <div className='form_row'>
                                     <div className='form_item'>
-                                        <p>COLLEGE ATTENDED:<span class="required">*</span></p>
+                                        <p>COLLEGE:<span class="required">*</span></p>
                                         <input name="college" placeholder='college attended' value={formData.college} onChange={handleChange}/>
                                         <p className='error_msg'>{collegeError}</p>
                                     </div>
