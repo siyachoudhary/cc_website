@@ -16,8 +16,9 @@ export default function Home() {
         {isLoggedIn?
 
             <div className='standard_bg'>
-                <div id='main_txt'>
-                    <h1 className='standard_heading'>CONANT CONNECT</h1>
+                <div>
+                    <h1 className='standard_heading'>WELCOME TO CONANT CONNECT</h1>
+                    <h2 className='standard_heading3'>THE ONE-STOP SHOP TO CONNECT CURRENT HIGH SCHOOL STUDENTS WITH COLLEGE AND GRADUATED STUDENTS</h2>
                 </div>
             </div>
 
