@@ -40,7 +40,11 @@
     margin-bottom: 2vh;
     font-size: x-large;
     padding-bottom: 1vh;
-    border-bottom: .5px white solid;
+    /* border-bottom: .5px white solid; */
+    background-image: linear-gradient(transparent, transparent),linear-gradient(transparent, transparent),linear-gradient(to right, #30c3e8, #0d0d0d);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% 2px;
 }
 
 .profile_data p{

@@ -3,11 +3,34 @@
    width: 50%;
    margin-left: auto;
    margin-right: auto ;
+   
+}
+
+.goBackFixed{
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 100px;
+    font-size: xx-large;
+    width: 7vh;
+    height: 7vh;
+    position: absolute;
+    text-decoration: none;
+    margin-top: 3.5vh;
+    margin-left: -3vh;
 }
 
 @media only screen and (max-width: 450px) {
     .paragraphBasic{
         color: white;
         width: 80%;
+    }
+
+    .goBackFixed{
+        position: fixed;
+        left: 5vw;
+        bottom: 3vh;
+        z-index: 1000;
+        margin-left: 0;
     }
 }

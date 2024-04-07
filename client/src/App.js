@@ -13,6 +13,7 @@ import Forgot from './Pages/account/Forgot';
 import Profile from './Pages/Profile';
 import Explore from './Pages/Explore';
 import OneMentor from './Pages/OneMentor';
+import MyFooter from './Components/footer';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                 <Route path='/mentor' element={<OneMentor/>}></Route>
             </Routes>
           </BrowserRouter>
+        <MyFooter></MyFooter>
     </div>
   );
 }
