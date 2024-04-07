@@ -56,7 +56,7 @@ export default function OneMentor() {
             <div className='standard_bg'>
 
               {thisMentor!=null?
-                <div id='main_txt'>
+                <div>
                   <h1 className='standard_heading4'>{thisMentor.first} {thisMentor.last}</h1>
                   <h1 className='standard_heading3'>College Attended: {thisMentor.college}</h1>
                   <h1 className='standard_heading3'>Major: {thisMentor.major}</h1>
@@ -72,7 +72,10 @@ export default function OneMentor() {
                                 </div>
                             )})}
                   <br></br>
+                  <a className='goBackFixed' href={"/explore"}>🔙</a>
                   <button className='basic_button'>SEND CONNECTION REQUEST</button>
+
+                  
                 </div>:null
               }
               
