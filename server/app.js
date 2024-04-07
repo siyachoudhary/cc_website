@@ -480,6 +480,37 @@ app.get("/findonementor/:_id", (request, response) => {
     });
 });
 
+app.get("/findStats", (request, response) => {
+  var totalStudents = 0
+  var totalMentors = 0
+  User.find({ user_type: "mentor"}) 
+    .then((users) => {
+      totalMentors=users.length
+      User.find({ user_type: "student"}) 
+      .then((users) => {
+        totalStudents=users.length
+        response.status(200).send({
+          totalStudents,
+          totalMentors
+        });
+      })
+      .catch((e) => {
+        console.log(e)
+        response.status(404).send({
+          message: "user not found, proceed",
+          e,
+        });
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+});
+
 // // update endpoint
 // app.post("/updateUser/:email", (request, response) => {
 //   // check if email exists
