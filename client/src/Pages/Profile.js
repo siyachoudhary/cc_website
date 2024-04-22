@@ -4,6 +4,7 @@ import { BaseURL } from './BaseUrl';
 import axios from 'axios';
 import Select from 'react-select'
 import { confirmAlert } from 'react-confirm-alert';
+import {options} from "./SkillOptions"
 
 export default function Profile() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,14 +13,16 @@ export default function Profile() {
     const [isEditing, setIsEditing] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([])
 
-    const options = [
-        { value: 'machine learning', label: 'Machine Learning' },
-        { value: 'data science', label: 'Data Science' },
-        { value: 'database', label: 'Database Management' },
-        { value: 'frontend', label: 'Frontend Development' },
-        { value: 'game', label: 'Game Design' },
-        { value: 'algos', label: 'Algorithms' }
-    ]
+    // const options = [
+    //     { value: 'machine learning', label: 'Machine Learning' },
+    //     { value: 'data science', label: 'Data Science' },
+    //     { value: 'database', label: 'Database Management' },
+    //     { value: 'frontend', label: 'Frontend Development' },
+    //     { value: 'game', label: 'Game Design' },
+    //     { value: 'algos', label: 'Algorithms' },
+    //     { value: 'ai', label: 'Artificial Intelligence' },
+    //     { value: 'other', label: 'Other' },
+    // ]
 
     let completedInterestAdding = false
 
@@ -67,6 +70,12 @@ export default function Profile() {
                 }
                 if(thisUser.interest[index].value=="algos"){
                     setSelectedOptions(prevArray => [...prevArray, options[5]])
+                }
+                if(thisUser.interest[index].value=="ai"){
+                    setSelectedOptions(prevArray => [...prevArray, options[6]])
+                }
+                if(thisUser.interest[index].value=="other"){
+                    setSelectedOptions(prevArray => [...prevArray, options[7]])
                 }
         }}
 

@@ -4,6 +4,7 @@ import Mentor from './components/Mentor';
 import axios from 'axios';
 import { BaseURL } from './BaseUrl';
 import Select from 'react-select'
+import {options} from "./SkillOptions"
 
 export default function Explore() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,15 +47,6 @@ export default function Explore() {
     };
 
     const [selectedOptions, setSelectedOptions] = useState([])
-
-    const options = [
-        { value: 'machine learning', label: 'Machine Learning' },
-        { value: 'data science', label: 'Data Science' },
-        { value: 'database', label: 'Database Management' },
-        { value: 'frontend', label: 'Frontend Development' },
-        { value: 'game', label: 'Game Design' },
-        { value: 'algos', label: 'Algorithms' }
-    ]
 
     const handleItemChange = (selectedOption) => {
       setSelectedOptions(selectedOption);
