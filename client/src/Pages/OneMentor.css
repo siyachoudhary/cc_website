@@ -13,11 +13,12 @@
     border-radius: 100px;
     font-size: xx-large;
     width: 7vh;
-    height: 7vh;
+    /* height: 7vh; */
     position: absolute;
     text-decoration: none;
     margin-top: 3.5vh;
     margin-left: -3vh;
+    margin-top: 5vh;
 }
 
 @media only screen and (max-width: 450px) {
