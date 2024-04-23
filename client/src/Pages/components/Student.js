@@ -8,9 +8,9 @@ function Student(props) {
 
     const mentorInfo = (mentorId) => {
 
-        localStorage.setItem("currentMentorId", String(mentorId));
+        localStorage.setItem("currentStudentId", String(mentorId));
 
-        navigate("/mentor");
+        navigate("/student");
 
         
     };

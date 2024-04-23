@@ -16,6 +16,7 @@ import OneMentor from './Pages/OneMentor';
 import MyFooter from './Components/footer';
 import MyMentors from './Pages/MyMentors';
 import MyStudents from './Pages/MyStudents';
+import OneStudent from './Pages/OneStudent';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
                 <Route path='/profile' element={<Profile/>}></Route>
                 <Route path='/explore' element={<Explore/>}></Route>
                 <Route path='/mentor' element={<OneMentor/>}></Route>
+                <Route path='/student' element={<OneStudent/>}></Route>
                 <Route path='/myMentors' element={<MyMentors/>}></Route>
                 <Route path='/myStudents' element={<MyStudents/>}></Route>
             </Routes>
