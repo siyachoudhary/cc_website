@@ -38,17 +38,18 @@ export default function OneStudent() {
         
     });
 
-    const sendRequest = async()=>{
-      await axios.post(`${BaseURL}sendRequest/`, {
+    const acceptRequest = async()=>{
+      await axios.post(`${BaseURL}acceptRequest/`, {
         params:{
-          mentorId: mentorId,
-          myId: thisId
+          studentId: mentorId,
+          mentorId: thisId,
+          studentEmail: thisMentor.email
         }
     })
     .then(function(response) {
         storeData(JSON.stringify(response.data.user))
-        console.log("connection sent")
-        navigate("/explore")
+        console.log("accepted")
+        navigate("/MyStudents")
 
     }).catch(function (err) {
         console.log(err.message);
@@ -90,8 +91,6 @@ export default function OneStudent() {
               setIsFriend(true)
             }
           });
-
-          console.log(isReqSent)
           
 
       }).catch(function (err) {
@@ -111,7 +110,7 @@ export default function OneStudent() {
                   {isFriend?<h1 className='standard_heading3'>Email: {thisMentor.email}</h1>:null}
                   <h1 className='standard_heading3'>Grade Level: {thisMentor.grade}</h1>
                   <br></br>
-                  <h1 className='standard_heading3'>Mentor Bio:</h1>
+                  <h1 className='standard_heading3'>Student Bio:</h1>
                   <p className='paragraphBasic'>{thisMentor.bio}</p>
                   <p className='standard_paragraph'>My Interests:</p>
 
@@ -126,7 +125,7 @@ export default function OneStudent() {
                     <div className='buttonsForOneMentor'>
                       {isReqSent?
                         <div>
-                          <button className='basic_button basic3' onClick={()=>navigate("/explore")}>ACCEPT REQUEST</button>
+                          <button className='basic_button basic3' onClick={()=>acceptRequest()}>ACCEPT REQUEST</button>
                           <br></br>
                           <button className='basic_button basic3' onClick={()=>navigate("/MyStudents")}>BACK TO MY STUDENTS</button>
                           

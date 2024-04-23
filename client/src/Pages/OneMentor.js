@@ -42,7 +42,8 @@ export default function OneMentor() {
       await axios.post(`${BaseURL}sendRequest/`, {
         params:{
           mentorId: mentorId,
-          myId: thisId
+          myId: thisId,
+          mentorEmail: thisMentor.email
         }
     })
     .then(function(response) {
@@ -121,7 +122,7 @@ export default function OneMentor() {
                                 </div>
                             )})}
                   <br></br>
-                  {!isStudent?
+                  {isStudent?
                     <div className='buttonsForOneMentor'>
                       {isReqSent?
                         <div>

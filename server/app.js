@@ -99,6 +99,117 @@ function sendEmail({ recipient_email, OTP }) {
   });
 }
 
+function sendUpdate({ recipient_email}) {
+  console.log(recipient_email)
+  return new Promise((resolve, reject) => {
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.MY_EMAIL,
+        pass: process.env.MY_PASSWORD,
+      },
+    });
+
+    const mail_configs = {
+      from: process.env.MY_EMAIL,
+      to: recipient_email,
+      subject: "CONANT CONNECT MENTOR UPDATE",
+      html: `<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Conant Connect Mentor Update</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+  <div style="margin:50px auto;width:70%;padding:20px 0">
+    <div style="border-bottom:1px solid #eee">
+      <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Conant Connect</a>
+    </div>
+    <p style="font-size:1.1em">Hello,</p>
+    <p>There has been an update in your mentors. Check your profile to view this update.</p>
+    <a href="http://localhost:3001/home" target="_blank">OPEN YOUR PROFILE</a>
+    <p style="font-size:0.9em;">Regards,<br />Conant Connect Team</p>
+    <hr style="border:none;border-top:1px solid #eee" />
+    <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+      <p>Conant Connect</p>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  
+</body>
+</html>`,
+    };
+    transporter.sendMail(mail_configs, function (error, info) {
+      if (error) {
+        console.log(error);
+        return reject({ message: `An error has occured` });
+      }
+      return resolve({ message: "Email sent succesfuly" });
+    });
+  });
+}
+
+
+function sendRequest({ recipient_email}) {
+  console.log(recipient_email)
+  return new Promise((resolve, reject) => {
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.MY_EMAIL,
+        pass: process.env.MY_PASSWORD,
+      },
+    });
+
+    const mail_configs = {
+      from: process.env.MY_EMAIL,
+      to: recipient_email,
+      subject: "CONANT CONNECT MENTOR REQUEST UPDATE",
+      html: `<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Conant Connect Mentor Update</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+  <div style="margin:50px auto;width:70%;padding:20px 0">
+    <div style="border-bottom:1px solid #eee">
+      <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Conant Connect</a>
+    </div>
+    <p style="font-size:1.1em">Hello,</p>
+    <p>There has been an update in your student requests. Check your profile to view this update.</p>
+    <a href="http://localhost:3001/home" target="_blank">OPEN YOUR PROFILE</a>
+    <p style="font-size:0.9em;">Regards,<br />Conant Connect Team</p>
+    <hr style="border:none;border-top:1px solid #eee" />
+    <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+      <p>Conant Connect</p>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  
+</body>
+</html>`,
+    };
+    transporter.sendMail(mail_configs, function (error, info) {
+      if (error) {
+        console.log(error);
+        return reject({ message: `An error has occured` });
+      }
+      return resolve({ message: "Email sent succesfuly" });
+    });
+  });
+}
+
 app.post("/send_recovery_email", (req, res) => {
   User.findOne({ email: req.body.recipient_email })
   .then((user)=>{
@@ -427,9 +538,32 @@ app.post("/deleteUser", (request, response) => {
   // check if email exists
   User.deleteOne({ email: request.body.email }) 
     .then(() => {
+      User.updateMany({pending:request.body._id},{$pull:{pending:request.body._id}})
+
+    .then(() => {
+      User.updateMany({accepted:request.body._id},{$pull:{accepted:request.body._id}})
+
+    .then(() => {
+      
       response.status(200).send({
         message: "user deleted successfully",
       });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not delete user",
+        e,
+      });
+    });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not delete user",
+        e,
+      });
+    });
     })
     .catch((e) => {
       console.log(e)
@@ -536,6 +670,7 @@ app.post("/sendRequest", (request, response) => {
       User.findOne({ _id: request.body.params.myId}) 
     .then((user) => {
       // console.log(user)
+      sendRequest({recipient_email: request.body.params.mentorEmail})
       response.status(200).send({
         user
       });
@@ -565,300 +700,46 @@ app.post("/sendRequest", (request, response) => {
     });
 });
 
-// // update endpoint
-// app.post("/updateUser/:email", (request, response) => {
-//   // check if email exists
-//   console.log(request.body.name )
-//   User.updateOne({ email: request.params.email }, { "$set":{"email": request.body.email, "name":request.body.name}}, {runValidators:true,new:true}) 
-//     .then((user) => {
-//       const token = jwt.sign(
-//         {
-//           userId: user._id,
-//           userEmail: user.email
-//         },
-//         "RANDOM-TOKEN",
-//         { expiresIn: "24h" }
-//       );
-      
-//       User.findOne({ email: request.body.email }) 
-//     .then((user) => {
-//       response.status(200).send({
-//         message: "data stored successfully",
-//         email: request.body.email,
-//         name: request.body.name,
-//         _id:request.body.userId,
-//         profile: user.imgProfile,
-//         token,
-//       });
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "user not found, proceed",
-//         e,
-//       });
-//     });
 
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "Could not update user",
-//         e,
-//       });
-//     });
-// });
-
-// // delete endpoint
-// app.post("/checkDuplicates/:email", (request, response) => {
-//   // check if email exists
-//   console.log(request.params.email)
-//   User.findOne({ email: request.params.email }) 
-//     .then((user) => {
-//       console.log(user)
-//       if(user!=null){
-//         response.status(200).send({
-//           message: "user found successfully",
-//         });
-//       }else{
-//         response.status(404).send({
-//           message: "user not found, proceed",
-//         });
-//       }
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "user not found, proceed",
-//         e,
-//       });
-//     });
-// });
-
-
-// //  get all user friends
-// app.get("/getUsers/:emailStr", (request, response) => { 
-//   User.find({$or: [{name: {$regex: request.params.emailStr, $options: "i"}}, {email: {$regex: request.params.emailStr, $options: "i"}}]})
-//     .then((user) => {
-//       response.status(200).send({
-//         users: user
-//       });
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "Could not find",
-//         e,
-//       });
-//     });
-// });
-
-// app.get("/getFriendReqs/:_id", (request, response) => { 
-//   User.findOne({ _id: request.params._id }) 
-//     .then((user) => {
-//       response.status(200).send({
-//         users: user.friendReqs
-//       });
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "user not found, proceed",
-//         e,
-//       });
-//     });
-// });
-
-// app.get("/getPendings/:_id", (request, response) => { 
-//   User.findOne({ _id: request.params._id }) 
-//     .then((user) => {
-//       response.status(200).send({
-//         users: user.pendingReqs
-//       });
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "user not found, proceed",
-//         e,
-//       });
-//     });
-// });
-
-// app.post("/addFriendReq/:_id", (request, response) => {
-//   User.updateOne({ _id: request.params._id}, {$push: {friendReqs: request.body.friendReq}},) 
-//     .then((user) => {
-//       User.updateOne({ _id: request.body.friendReq}, {$push: {pendingReqs: request.params._id}},) 
-//       .then((user) => {
-//           response.status(200).send({
-//             message: "user friend request sent successfully",
-//       });
-//       })
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "Could not add user friend request",
-//         e,
-//       });
-//     });
-// });
-
-
-// // friends endpoint
-// // add friend
-// app.post("/addFriends/:_id", (request, response) => {
-//   // check if email exists
-//   User.updateOne({ _id: request.params._id}, {$push: {friends: request.body.friend}},) 
-//     .then((user) => {
-//       User.updateOne({ _id: request.body.friend}, {$push: {friends: request.params._id}},) 
-//       .then((user) => {
-//         User.updateOne({ _id: request.body.friend}, {$pull: {pendingReqs: request.params._id}},) 
-//       .then((user) => {
-//         User.updateOne({ _id: request.params._id}, {$pull: {friendReqs: request.body.friend}},) 
-//       .then((user) => {
-//         response.status(200).send({
-//           message: "user friend added successfully",
-//           friends: user.friends
-//       })
-//       })
-//       })
-//     });
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "Could not add user friend",
-//         e,
-//       });
-//     });
-// });
-
-// app.post("/declineFriends/:_id", (request, response) => {
-//   // check if email exists
-//         User.updateOne({ _id: request.body.friend}, {$pull: {pendingReqs: request.params._id}},) 
-//       .then((user) => {
-//         User.updateOne({ _id: request.params._id}, {$pull: {friendReqs: request.body.friend}},) 
-//       .then((user) => {
-//         response.status(200).send({
-//           message: "user request revoked successfully",
-//           friends: user.friends
-//       })
-//       })
-//       })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "Could not add user friend",
-//         e,
-//       });
-//     });
-// });
-
-// // remove friend
-// app.post("/removeFriend/:_id", (request, response) => {
-//   // check if email exists
-//   User.updateOne({ _id: request.params._id}, {$pull: {friends: request.body.friend}},) 
-//     .then((user) => {
-//       User.updateOne({ _id: request.body.friend}, {$pull: {friends: request.params._id}},) 
-//       .then((user) => {
-//         response.status(200).send({
-//           message: "user friend removed successfully",
-//           friends: user.friends
-//       });
-//     });
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "Could not remove user friend",
-//         e,
-//       });
-//     });
-// });
-
-// //  get all user friends
-// app.get("/findFriends/:_id", (request, response) => {
-
-//   User.findOne({ _id: request.params._id}) 
-//     .then((user) => {
-//       var allFriends=[]
-//       var amount = user.friends.length
-//       fetched = 0
-//       for(var i = 0; i<amount; i++){
-//         (function() {
-//         User.findOne({ _id: user.friends[i]}) 
-//         .then((user2) => {
-//           fetched++
-//           // console.log(user2)
-//           allFriends.push({
-//             name: user2.name,
-//             email: user2.email,
-//             _id: user2._id,
-//             friends: user2.friends,
-//             profile: user2.imgProfile
-//         });
-//         console.log(fetched)
-//         if(fetched===amount){
-//           console.log(allFriends)
-//           response.status(200).send(allFriends)
-//           return
-//         }
-//         })
-//         .catch((e) => {
-//           console.log(e)
-//           response.status(404).send({
-//             message: "Could not find user friends",
-//             e,
-//           });
-//         });
-//       })();
-//       }
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "Could not find user friends",
-//         e,
-//       });
-//     });
-// });
-
-// app.get("/findFriendsList/:_id", (request, response) => {
-//   User.findOne({ _id: request.params._id}) 
-//     .then((user) => {
-//       response.json(user.friends)
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "Could not find user friends",
-//         e,
-//       });
-//     });
-// });
-
-
-// app.get("/findUser/:_id", (request, response) => {
-//   // check if email exists
-//   User.findOne({ _id: request.params._id}) 
-//     .then((user) => {
-//       response.status(200).send({
-//         name: user.name,
-//         email: user.email,
-//         _id: user._id,
-//         friends: user.friends,
-//         profile: user.imgProfile
-//     });
-//     })
-//     .catch((e) => {
-//       console.log(e)
-//       response.status(404).send({
-//         message: "Could not find user friends",
-//         e,
-//       });
-//     });
-// });
+// send request
+app.post("/acceptRequest", (request, response) => {
+  // check if email exists
+  User.updateOne({ _id: request.body.params.mentorId}, {"$push":{accepted: request.body.params.studentId},  "$pull":{pending: request.body.params.studentId}}) 
+    .then(() => {
+      User.updateOne({ _id: request.body.params.studentId }, { "$push":{accepted: request.body.params.mentorId}, "$pull":{pending: request.body.params.mentorId}}) 
+    .then(() => {
+      User.findOne({ _id: request.body.params.mentorId}) 
+    .then((user) => {
+      sendUpdate({recipient_email: request.body.params.studentEmail})
+      console.log(request.body.params.studentEmail)
+      response.status(200).send({
+        user
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not update user",
+        e,
+      });
+    });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not update user",
+        e,
+      });
+    });
+});
 
 
 // free endpoint

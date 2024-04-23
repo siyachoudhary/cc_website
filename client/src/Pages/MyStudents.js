@@ -83,11 +83,11 @@ export default function MyStudents() {
             <div className='standard_bg'>
                 <div className='mentorsSection'>
                     <div className='accepted'>
-                        <h1 className='standard_heading4'>YOUR MENTORS</h1>
+                        <h1 className='standard_heading4'>YOUR STUDENTS</h1>
                         <div className='allMentors'>
                             {accepted.map(function(data) {
                                 return (
-                                    <div className={"column"}><Mentor name={data.first + " " + data.last} college={data.college} major={data.major} _id={data._id}></Mentor></div>
+                                    <div className={"column"}><Student name={data.first + " " + data.last} grade={data.grade} email={data.email} _id={data._id}></Student></div>
                                 )
                                 })}
                         </div>
