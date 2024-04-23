@@ -38,7 +38,7 @@ export default function Profile() {
         if(!thisUser.complete){
             setIsEditing(true)
         }
-        if(thisUser.type=="student"){
+        if(thisUser.user_type=="student"){
             setIsStudent(true)
         }
 

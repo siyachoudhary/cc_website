@@ -138,7 +138,7 @@ app.post("/resetPassword", (request, response) => {
                 email: user.email,
                 first: user.first,
                 last: user.last,
-                type: user.user_type,
+                user_type: user.user_type,
                 _id: user._id,
                 grade:user.grade
               });
@@ -147,7 +147,7 @@ app.post("/resetPassword", (request, response) => {
                 email: user.email,
                 first: user.first,
                 last: user.last,
-                type: user.user_type,
+                user_type: user.user_type,
                 _id: user._id
               });
             }
@@ -195,12 +195,15 @@ app.post("/registerstudent", (request, response) => {
             email: request.body.email,
             first: request.body.first,
             last: request.body.last,
-            type: request.body.type,
+            user_type: request.body.type,
             _id: result._id,
             grade: result.grade,
             bio: result.bio,
             complete: request.body.complete,
-            interest: result.interest
+            interest: result.interest,
+            pending: user.pending,
+            accepted: user.accepted
+            
           });
         })
         // catch error if the new user wasn't added successfully to the database
@@ -231,6 +234,8 @@ app.post("/registermentor", (request, response) => {
         college: "",
         major: "",
         bio: "",
+        pending: user.pending,
+        accepted: user.accepted,
         interest: []
       });
 
@@ -242,12 +247,14 @@ app.post("/registermentor", (request, response) => {
             email: request.body.email,
             first: request.body.first,
             last: request.body.last,
-            type: request.body.type,
+            user_type: request.body.type,
             _id: result._id,
             complete: request.body.complete,
             college: result.college,
             major: result.major,
             bio: result.bio,
+            pending: user.pending,
+            accepted: user.accepted,
             interest: result.interest
           });
         })
@@ -302,12 +309,14 @@ app.post("/login", (request, response) => {
               first: user.first,
               last: user.last,
               _id: user._id,
-              type: user.user_type,
+              user_type: user.user_type,
               complete: user.complete,
               college: user.college,
               major: user.major,
               bio: user.bio,
               interest: user.interest,
+              pending: user.pending,
+              accepted: user.accepted,
               token,
             });
           }else{
@@ -318,9 +327,11 @@ app.post("/login", (request, response) => {
               last: user.last,
               _id: user._id,
               grade: user.grade,
-              type: user.user_type,
+              user_type: user.user_type,
               complete: user.complete,
               interest: user.interest,
+              pending: user.pending,
+              accepted: user.accepted,
               token,
             });
           }
@@ -356,13 +367,15 @@ app.post("/editmentor", (request, response) => {
             email: request.body.email,
             first: request.body.first,
             last: request.body.last,
-            type: user.user_type,
+            user_type: user.user_type,
             _id: user._id,
             complete: request.body.complete,
             college: request.body.college,
             major: request.body.major,
             bio: request.body.bio,
             interest: request.body.interest,
+            pending: user.pending,
+            accepted: user.accepted
           });
         })
       })
@@ -389,12 +402,14 @@ app.post("/editstudent", (request, response) => {
           email: request.body.email,
           first: request.body.first,
           last: request.body.last,
-          type: user.user_type,
+          user_type: user.user_type,
           _id: user._id,
           complete: request.body.complete,
           grade: request.body.grade,
           bio: request.body.bio,
           interest: request.body.interest,
+          pending: user.pending,
+          accepted: user.accepted
         });
       })
       
@@ -506,6 +521,45 @@ app.get("/findStats", (request, response) => {
       console.log(e)
       response.status(404).send({
         message: "user not found, proceed",
+        e,
+      });
+    });
+});
+
+// send request
+app.post("/sendRequest", (request, response) => {
+  // check if email exists
+  User.updateOne({ _id: request.body.params.mentorId}, { "$push":{pending: request.body.params.myId}}) 
+    .then(() => {
+      User.updateOne({ _id: request.body.params.myId }, { "$push":{pending: request.body.params.mentorId}}) 
+    .then(() => {
+      User.findOne({ _id: request.body.params.myId}) 
+    .then((user) => {
+      // console.log(user)
+      response.status(200).send({
+        user
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not update user",
+        e,
+      });
+    });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not update user",
         e,
       });
     });
