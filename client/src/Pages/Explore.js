@@ -5,10 +5,12 @@ import axios from 'axios';
 import { BaseURL } from './BaseUrl';
 import Select from 'react-select'
 import {options} from "./SkillOptions"
+import { useNavigate } from 'react-router-dom';
 
 export default function Explore() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [allMentors, setAllMentors] = useState([])
+    const navigate = useNavigate();
 
     // check if the user is logged in on the server
     useEffect(() => {
@@ -84,7 +86,12 @@ export default function Explore() {
                             <div className={"column"}><Mentor name={data.first + " " + data.last} college={data.college} major={data.major} _id={data._id}></Mentor></div>
                         )
                         })}
+
+                    {/* <h1 className='standard_heading3'>THIS IS THE END OF ALL MENTORS</h1> */}
+                        
                     </div>
+
+                    
             </div>
 
             :

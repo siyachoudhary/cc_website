@@ -4,7 +4,7 @@ import { BaseURL } from './BaseUrl';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function OneMentor() {
+export default function OneStudent() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [mentorId, setMentorId] = useState(null);
     const [thisMentor, setThisMentor] = useState(null);
@@ -28,7 +28,7 @@ export default function OneMentor() {
         }
         if(thisMentor==null){
         try {
-          setMentorId(String(localStorage.getItem("currentMentorId")))
+          setMentorId(String(localStorage.getItem("currentStudentId")))
           if(mentorId!=null){
             searchMentors()
           }
@@ -38,18 +38,18 @@ export default function OneMentor() {
         
     });
 
-    const sendRequest = async()=>{
-      await axios.post(`${BaseURL}sendRequest/`, {
+    const acceptRequest = async()=>{
+      await axios.post(`${BaseURL}acceptRequest/`, {
         params:{
-          mentorId: mentorId,
-          myId: thisId,
-          mentorEmail: thisMentor.email
+          studentId: mentorId,
+          mentorId: thisId,
+          studentEmail: thisMentor.email
         }
     })
     .then(function(response) {
         storeData(JSON.stringify(response.data.user))
-        console.log("connection sent")
-        navigate("/explore")
+        console.log("accepted")
+        navigate("/MyStudents")
 
     }).catch(function (err) {
         console.log(err.message);
@@ -91,7 +91,7 @@ export default function OneMentor() {
               setIsFriend(true)
             }
           });
-          console.log(isReqSent)
+          
 
       }).catch(function (err) {
           console.log(err.message);
@@ -108,10 +108,9 @@ export default function OneMentor() {
                 <div>
                   <h1 className='standard_heading4'>{thisMentor.first} {thisMentor.last}</h1>
                   {isFriend?<h1 className='standard_heading3'>Email: {thisMentor.email}</h1>:null}
-                  <h1 className='standard_heading3'>College Attended: {thisMentor.college}</h1>
-                  <h1 className='standard_heading3'>Major: {thisMentor.major}</h1>
+                  <h1 className='standard_heading3'>Grade Level: {thisMentor.grade}</h1>
                   <br></br>
-                  <h1 className='standard_heading3'>Mentor Bio:</h1>
+                  <h1 className='standard_heading3'>Student Bio:</h1>
                   <p className='paragraphBasic'>{thisMentor.bio}</p>
                   <p className='standard_paragraph'>My Interests:</p>
 
@@ -122,30 +121,17 @@ export default function OneMentor() {
                                 </div>
                             )})}
                   <br></br>
-                  {isStudent?
+                  {!isStudent?
                     <div className='buttonsForOneMentor'>
                       {isReqSent?
                         <div>
+                          <button className='basic_button basic3' onClick={()=>acceptRequest()}>ACCEPT REQUEST</button>
+                          <br></br>
+                          <button className='basic_button basic3' onClick={()=>navigate("/MyStudents")}>BACK TO MY STUDENTS</button>
                           
-                          <button className='basic_button' onClick={()=>navigate("/explore")}>BACK TO EXPLORE</button>
-                          <p className='standard_paragraph'>*You have already sent this mentor a request</p>
-                        </div>:<div>
-                          {isFriend?
-                            <div>
-                              
-                              <button className='basic_button' onClick={()=>navigate("/explore")}>BACK TO EXPLORE</button>
-                              <p className='standard_paragraph'>*This mentor is already your friend</p>
-                            </div>:
-                            <div>
-                              <a className='goBackFixed' href={"/explore"}>🔙</a>
-                              <button className='basic_button' onClick={()=>sendRequest()}>SEND CONNECTION REQUEST</button>
-                            </div>
-                          }
-                        </div>
+                        </div>:<button className='basic_button basic3' onClick={()=>navigate("/MyStudents")}>BACK TO MY STUDENTS</button>
                       }
-                  </div>:<div className='buttonsForOneMentor'>
-                    <button className='basic_button' onClick={()=>navigate("/explore")}>BACK TO EXPLORE</button>
-                  </div>
+                  </div>:null
                 }
                   
 

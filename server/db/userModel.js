@@ -61,6 +61,16 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         // unique: false,
       },
+
+      pending: {
+        type: Array,
+        // unique: false,
+      },
+
+      accepted: {
+        type: Array,
+        // unique: false,
+      },
   })
 
   module.exports = mongoose.model.Users || mongoose.model("Users", UserSchema);

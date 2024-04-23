@@ -11,8 +11,16 @@ export default function Profile() {
     const [isComplete, setIsComplete] = useState(false);
     const [isStudent, setIsStudent] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [thisId, setThisId] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([])
 
+    // check if the user is logged in on the server
+    useEffect(() => {
+        if(localStorage.getItem("user")){
+        const thisUser = JSON.parse(localStorage.getItem("user"))
+          setThisId(thisUser._id)
+        }
+    });
     // const options = [
     //     { value: 'machine learning', label: 'Machine Learning' },
     //     { value: 'data science', label: 'Data Science' },
@@ -38,7 +46,7 @@ export default function Profile() {
         if(!thisUser.complete){
             setIsEditing(true)
         }
-        if(thisUser.type=="student"){
+        if(thisUser.user_type=="student"){
             setIsStudent(true)
         }
 
@@ -252,7 +260,8 @@ export default function Profile() {
         console.log("delete")
 
         axios.post(`${BaseURL}deleteUser`, {
-            email: formData.email.toLowerCase()
+            email: formData.email.toLowerCase(),
+            _id: thisId
         })
         .then(function (response) {
             // handle success

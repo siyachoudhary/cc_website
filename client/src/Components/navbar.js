@@ -15,7 +15,7 @@ function MyNav() {
     useEffect(() => {
       if(localStorage.getItem("user")){
         setIsLoggedIn(true)
-        if(JSON.parse(localStorage.getItem("user")).type=="student"){
+        if(JSON.parse(localStorage.getItem("user")).user_type=="student"){
           setIsStudent(true)
         }else{
           setIsStudent(false)
