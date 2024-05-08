@@ -132,7 +132,7 @@ export default function Signup() {
                     password: formData.password,
                     grade: formData.grade,
                     type: "student",
-                    complete: true
+                    complete: false
                 })
                 .then(function (response) {
                     // handle success
@@ -175,10 +175,10 @@ export default function Signup() {
         try {
             console.log(value)
             await localStorage.setItem("user", value);
-            if(isStudent){
-                navigate("/home")
+            if(!isStudent){
+                navigate("/conantconnect/home")
             }else{
-                navigate("/profile")
+                navigate("/conantconnect/profile")
             }
             window.location.reload()
             console.log("stored data")
@@ -269,7 +269,7 @@ export default function Signup() {
                 <button type="submit" className='basic_button'>CREATE ACCOUNT</button>
         </form>
 
-        <a className='standard_link' href={"/login"}>Already signed up? Login here!</a>
+        <a className='standard_link' href={"/conantconnect/login"}>Already signed up? Login here!</a>
         
     </div>
   )

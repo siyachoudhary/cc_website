@@ -60,6 +60,7 @@ export default function Profile() {
                 ["bio"]: thisUser.bio
         });
         if(!completedInterestAdding){
+            if(thisUser.interest.length>0){
             for (let index = 0; index < thisUser.interest.length; index++) {
                 if(thisUser.interest[index].value=="machine learning"){
                     setSelectedOptions(prevArray => [...prevArray, options[0]])
@@ -84,7 +85,7 @@ export default function Profile() {
                 }
                 if(thisUser.interest[index].value=="other"){
                     setSelectedOptions(prevArray => [...prevArray, options[7]])
-                }
+                }}
         }}
 
         completedInterestAdding = true
@@ -420,7 +421,7 @@ export default function Profile() {
             <div className='standard_bg'>
                 <div id='main_txt'>
                     <h1 className='standard_heading'>Please Login to Proceed</h1>
-                    <a className='standard_btn' href={"/login"}>LOGIN HERE</a>
+                    <a className='standard_btn' href={"/conantconnect/login"}>LOGIN HERE</a>
                 </div>
             </div>
         

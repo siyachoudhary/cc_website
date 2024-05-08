@@ -93,7 +93,7 @@ export default function Forgot() {
             try {
                 console.log(value)
                 await localStorage.setItem("user", value);
-                navigate("/home")
+                navigate("/conantconnect/home")
                 window.location.reload()
                 console.log("stored data")
             } catch (e) {
