@@ -8,10 +8,10 @@ export default function Entry() {
         <img src={background} id='bg_img'/>
         <div id='main_txt'>
             <h1 className='standard_heading'>CONANT CONNECT</h1>
-            <a className='standard_btn' href={"/signup"}>GET STARTED</a>
+            <a className='standard_btn' href={"/conantconnect/signup"}>GET STARTED</a>
             <br></br>
             <br></br>
-            <a className='standard_link' href={"/login"}>Already signed up? Login here!</a>
+            <a className='standard_link' href={"/conantconnect/login"}>Already signed up? Login here!</a>
         </div>
     </div>
   )

@@ -49,7 +49,7 @@ export default function OneMentor() {
     .then(function(response) {
         storeData(JSON.stringify(response.data.user))
         console.log("connection sent")
-        navigate("/explore")
+        navigate("/conantconnect/explore")
 
     }).catch(function (err) {
         console.log(err.message);
@@ -127,24 +127,24 @@ export default function OneMentor() {
                       {isReqSent?
                         <div>
                           
-                          <button className='basic_button' onClick={()=>navigate("/explore")}>BACK TO EXPLORE</button>
+                          <button className='basic_button' onClick={()=>navigate("/conantconnect/explore")}>BACK TO EXPLORE</button>
                           <p className='standard_paragraph'>*You have already sent this mentor a request</p>
                         </div>:<div>
                           {isFriend?
                             <div>
                               
-                              <button className='basic_button' onClick={()=>navigate("/explore")}>BACK TO EXPLORE</button>
+                              <button className='basic_button' onClick={()=>navigate("/conantconnect/explore")}>BACK TO EXPLORE</button>
                               <p className='standard_paragraph'>*This mentor is already your friend</p>
                             </div>:
                             <div>
-                              <a className='goBackFixed' href={"/explore"}>🔙</a>
+                              <a className='goBackFixed' href={"/conantconnect/explore"}>🔙</a>
                               <button className='basic_button' onClick={()=>sendRequest()}>SEND CONNECTION REQUEST</button>
                             </div>
                           }
                         </div>
                       }
                   </div>:<div className='buttonsForOneMentor'>
-                    <button className='basic_button' onClick={()=>navigate("/explore")}>BACK TO EXPLORE</button>
+                    <button className='basic_button' onClick={()=>navigate("/conantconnect/explore")}>BACK TO EXPLORE</button>
                   </div>
                 }
                   
@@ -160,7 +160,7 @@ export default function OneMentor() {
             <div className='standard_bg'>
                 <div id='main_txt'>
                     <h1 className='standard_heading'>Please Login to Proceed</h1>
-                    <a className='standard_btn' href={"/login"}>LOGIN HERE</a>
+                    <a className='standard_btn' href={"/conantconnect/login"}>LOGIN HERE</a>
                 </div>
             </div>
         

@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Logo from "../Resources/images/logo.png"
+import { useNavigate } from 'react-router-dom';
 
 // stylesheet for navbar
 import './navbar.css'
@@ -11,10 +12,12 @@ import { useEffect, useRef, useState } from 'react';
 function MyNav() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isStudent, setIsStudent] = useState(false);
+    // const navigate = useNavigate();
 
     useEffect(() => {
       if(localStorage.getItem("user")){
         setIsLoggedIn(true)
+        // navigate("/conantconnect/home")
         if(JSON.parse(localStorage.getItem("user")).user_type=="student"){
           setIsStudent(true)
         }else{
@@ -103,11 +106,11 @@ function MyNav() {
             <Container>
 
               {isLoggedIn?
-                  <Navbar.Brand href="/home" className={"myLogo"}>
+                  <Navbar.Brand href="/conantconnect/home" className={"myLogo"}>
                     <img src={Logo} width={75}/>
                     {/* {isLoggedIn?<a href={"/home"} className={"myName"}>Conant Connect</a>:<a href={"/"} className={"myName"}>Conant Connect</a>} */}
                   </Navbar.Brand>:
-                  <Navbar.Brand href="/" className={"myLogo"}>
+                  <Navbar.Brand href="/conantconnect/" className={"myLogo"}>
                     <img src={Logo} width={75}/>
                     {/* {isLoggedIn?<a href={"/home"} className={"myName"}>Conant Connect</a>:<a href={"/"} className={"myName"}>Conant Connect</a>} */}
                   </Navbar.Brand>
@@ -124,14 +127,14 @@ function MyNav() {
                     </Nav>
                     {isLoggedIn?
                       <Nav>
-                          <CustomLink href={"/home"}>Home</CustomLink>
-                          <CustomLink href={"/explore"}>Explore</CustomLink>
-                          <CustomLink href={"/profile"}>Profile</CustomLink>
-                          {isStudent?<CustomLink href={"/myMentors"}>My Mentors</CustomLink>: <CustomLink href={"/myStudents"}>My Students</CustomLink>}
+                          <CustomLink href={"/conantconnect/home"}>Home</CustomLink>
+                          <CustomLink href={"/conantconnect/explore"}>Explore</CustomLink>
+                          <CustomLink href={"/conantconnect/profile"}>Profile</CustomLink>
+                          {isStudent?<CustomLink href={"/conantconnect/myMentors"}>My Mentors</CustomLink>: <CustomLink href={"/conantconnect/myStudents"}>My Students</CustomLink>}
                       </Nav> :
                       <Nav>
-                          <CustomLink href={"/login"}>Login</CustomLink>
-                          <CustomLink href={"/signup"}>Sign Up</CustomLink>
+                          <CustomLink href={"/conantconnect/login"}>Login</CustomLink>
+                          <CustomLink href={"/conantconnect/signup"}>Sign Up</CustomLink>
                       </Nav>
                     }
                 </Navbar.Collapse>

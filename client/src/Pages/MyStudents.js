@@ -123,7 +123,7 @@ export default function MyStudents() {
             <div className='standard_bg'>
                 <div id='main_txt'>
                     <h1 className='standard_heading'>Please Login to Proceed</h1>
-                    <a className='standard_btn' href={"/login"}>LOGIN HERE</a>
+                    <a className='standard_btn' href={"/conantconnect/login"}>LOGIN HERE</a>
                 </div>
             </div>
         
