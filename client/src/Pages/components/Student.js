@@ -10,7 +10,7 @@ function Student(props) {
 
         localStorage.setItem("currentStudentId", String(mentorId));
 
-        navigate("/conantconnect/student");
+        navigate("/student");
 
         
     };
