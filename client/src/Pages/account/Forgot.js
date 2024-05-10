@@ -93,7 +93,7 @@ export default function Forgot() {
             try {
                 console.log(value)
                 await localStorage.setItem("user", value);
-                navigate("/home")
+                navigate("/conantconnect/home")
                 window.location.reload()
                 console.log("stored data")
             } catch (e) {
@@ -224,7 +224,7 @@ export default function Forgot() {
             </div>
             <button type="submit" className='basic_button'>RESET PASSWORD</button>
             <br></br>
-            <a className='standard_link' href={"/signup"}>Don't have an account? Sign up here!</a>
+            <a className='standard_link' href={"/conantconnect/signup"}>Don't have an account? Sign up here!</a>
         </form>
         }
         

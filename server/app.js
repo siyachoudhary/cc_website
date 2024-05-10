@@ -131,7 +131,7 @@ function sendUpdate({ recipient_email}) {
     </div>
     <p style="font-size:1.1em">Hello,</p>
     <p>There has been an update in your mentors. Check your profile to view this update.</p>
-    <a href="http://localhost:3001/home" target="_blank">OPEN YOUR PROFILE</a>
+    <a href="http://localhost:3001/conantconnect/home" target="_blank">OPEN YOUR PROFILE</a>
     <p style="font-size:0.9em;">Regards,<br />Conant Connect Team</p>
     <hr style="border:none;border-top:1px solid #eee" />
     <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">

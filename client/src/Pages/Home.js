@@ -65,7 +65,7 @@ export default function Home() {
                       <h2 className='standard_heading2'>THE ONE-STOP SHOP TO CONNECT CURRENT HIGH SCHOOL STUDENTS WITH COLLEGE AND GRADUATED STUDENTS</h2>
                     </div>
                     <div>
-                      <a className='standard_btn' href={"/explore"}>EXPLORE NOW</a>
+                      <a className='standard_btn' href={"/conantconnect/explore"}>EXPLORE NOW</a>
                       <h3 className='standard_heading2'>Seek advice, give advice. Our mission is to help high school students navigate the intricacies of college and careers with the click of a button</h3>
                     </div>
 
@@ -98,7 +98,7 @@ export default function Home() {
             <div className='standard_bg'>
                 <div id='main_txt'>
                     <h1 className='standard_heading'>Please Login to Proceed</h1>
-                    <a className='standard_btn' href={"/login"}>LOGIN HERE</a>
+                    <a className='standard_btn' href={"/conantconnect/login"}>LOGIN HERE</a>
                 </div>
             </div>
         
