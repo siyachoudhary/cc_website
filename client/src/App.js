@@ -24,17 +24,17 @@ function App() {
       <MyNav></MyNav>
       <BrowserRouter>
             <Routes>
-                <Route path='/' element={<Entry/>}></Route>
-                <Route path='/login' element={<Login/>}></Route>
-                <Route path='/signup' element={<Signup/>}></Route>
-                <Route path='/forgot' element={<Forgot/>}></Route>
-                <Route path='/profile' element={<Profile/>}></Route>
-                <Route path='/explore' element={<Explore/>}></Route>
-                <Route path='/mentor' element={<OneMentor/>}></Route>
-                <Route path='/student' element={<OneStudent/>}></Route>
-                <Route path='/home' element={<Home/>}></Route>
-                <Route path='/myMentors' element={<MyMentors/>}></Route>
-                <Route path='/myStudents' element={<MyStudents/>}></Route>
+                <Route path='/conantconnect/' element={<Entry/>}></Route>
+                <Route path='/conantconnect/login' element={<Login/>}></Route>
+                <Route path='/conantconnect/signup' element={<Signup/>}></Route>
+                <Route path='/conantconnect/forgot' element={<Forgot/>}></Route>
+                <Route path='/conantconnect/profile' element={<Profile/>}></Route>
+                <Route path='/conantconnect/explore' element={<Explore/>}></Route>
+                <Route path='/conantconnect/mentor' element={<OneMentor/>}></Route>
+                <Route path='/conantconnect/student' element={<OneStudent/>}></Route>
+                <Route path='/conantconnect/home' element={<Home/>}></Route>
+                <Route path='/conantconnect/myMentors' element={<MyMentors/>}></Route>
+                <Route path='/conantconnect/myStudents' element={<MyStudents/>}></Route>
             </Routes>
           </BrowserRouter>
         <MyFooter></MyFooter>

@@ -49,7 +49,7 @@ export default function OneStudent() {
     .then(function(response) {
         storeData(JSON.stringify(response.data.user))
         console.log("accepted")
-        navigate("/MyStudents")
+        navigate("/conantconnect/MyStudents")
 
     }).catch(function (err) {
         console.log(err.message);
@@ -127,9 +127,9 @@ export default function OneStudent() {
                         <div>
                           <button className='basic_button basic3' onClick={()=>acceptRequest()}>ACCEPT REQUEST</button>
                           <br></br>
-                          <button className='basic_button basic3' onClick={()=>navigate("/MyStudents")}>BACK TO MY STUDENTS</button>
+                          <button className='basic_button basic3' onClick={()=>navigate("/conantconnect/MyStudents")}>BACK TO MY STUDENTS</button>
                           
-                        </div>:<button className='basic_button basic3' onClick={()=>navigate("/MyStudents")}>BACK TO MY STUDENTS</button>
+                        </div>:<button className='basic_button basic3' onClick={()=>navigate("/conantconnect/MyStudents")}>BACK TO MY STUDENTS</button>
                       }
                   </div>:null
                 }
@@ -146,7 +146,7 @@ export default function OneStudent() {
             <div className='standard_bg'>
                 <div id='main_txt'>
                     <h1 className='standard_heading'>Please Login to Proceed</h1>
-                    <a className='standard_btn' href={"/login"}>LOGIN HERE</a>
+                    <a className='standard_btn' href={"/conantconnect/login"}>LOGIN HERE</a>
                 </div>
             </div>
         

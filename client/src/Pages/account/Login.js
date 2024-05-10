@@ -82,9 +82,9 @@ export default function Login() {
             console.log(value)
             await localStorage.setItem("user", value);
             if(JSON.parse(value).complete==false){
-                navigate("/profile")
+                navigate("/conantconnect/profile")
             }else{
-                navigate("/home")
+                navigate("/conantconnect/home")
             }
             
             window.location.reload()
@@ -118,11 +118,11 @@ export default function Login() {
                 </div>
             </div>
             <br></br>
-            <a className='standard_link' href={"/forgot"}>Forgot password?</a>
+            <a className='standard_link' href={"/conantconnect/forgot"}>Forgot password?</a>
             <br></br>
             <button type="submit" className='basic_button'>Login</button>
         </form>
-        <a className='standard_link' href={"/signup"}>Don't have an account? Sign up here!</a>
+        <a className='standard_link' href={"/conantconnect/signup"}>Don't have an account? Sign up here!</a>
         
     </div>
   )
